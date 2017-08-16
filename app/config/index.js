@@ -6,7 +6,6 @@ const config = {
     development: Development
 }
 // get app environment
-console.log("index========",process.env.NODE_ENV);
 const env = process.env.NODE_ENV || 'development'
 // export config file
 export default config[env]

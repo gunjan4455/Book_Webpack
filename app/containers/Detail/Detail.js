@@ -1,12 +1,12 @@
 import React from "react";
-import "styles/bootstrap.css";
-import "styles/style.css";
 import {Link} from 'react-router-dom'
 import {getBookById, editBook} from "./api";
-import DetailModal from "../shared/DetailModal";
-import ConfirmationModal from "../shared/ConfirmationModal";
+import DetailModal from "../../components/shared/DetailModal";
+import ConfirmationModal from "../../components/shared/ConfirmationModal";
 import config from "../../config";
 const {API: {protocols, domain, imagePath}} = config;
+import {getBooksAsync} from '../../actions';
+import { connect } from 'react-redux';
 
 class Detail extends React.Component {
     constructor(props) {
@@ -19,6 +19,8 @@ class Detail extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.showInfo = this.showInfo.bind(this);
         this.onEdit = this.onEdit.bind(this);
+        console.log("this.props====searchh",this.props)
+
     }
 
     componentWillMount() {
@@ -93,4 +95,17 @@ class Detail extends React.Component {
     }
 }
 
+const mapStateToProps = ({state}) => {
+    console.log('mappppppp')
+    return {
+        books: state.books
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    getBooksAsync: () =>dispatch(getBooksAsync())
+});
+
+Detail = connect(mapStateToProps,mapDispatchToProps)(Detail);
 export default Detail
+

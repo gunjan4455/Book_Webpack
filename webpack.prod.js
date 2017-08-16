@@ -1,19 +1,16 @@
 const Merge = require('webpack-merge');
-const CommonConfig = require('./webpack.config');
+const CommonConfig = require('./webpack.common');
 const webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = Merge(CommonConfig, {
     plugins: [
         new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
+            minimize: true
         }),
-
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
             beautify: false,
             mangle: {
                 screw_ie8: true,

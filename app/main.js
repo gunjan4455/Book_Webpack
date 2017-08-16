@@ -1,5 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
+import {combineReducers, createStore, applyMiddleware} from "redux";
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import {default as rootReducer} from "./reducers";
+import rootSaga from "./sagas";
 import App from './App.js';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const sagaMiddleware = createSagaMiddleware();
+const reducers = combineReducers({ state : rootReducer});
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
+
+render(
+    <Provider store={store}>
+        <App/>
+    </Provider>, document.getElementById('root')
+);

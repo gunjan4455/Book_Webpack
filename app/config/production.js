@@ -12,7 +12,7 @@ API.domain = {
     BOOKS_CONNECT_LOCAL: 'localhost:3000',
     BOOKS_CONNECT_SERVER: ''
 }
-
+API.imagePath = '/assets/img/';
 // utility
 const UTILITY = {}
 

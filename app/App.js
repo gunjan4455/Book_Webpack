@@ -1,15 +1,15 @@
 import React from "react"
 import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Header from './components/Header'
-import Home from './components/Home'
+import Home from './containers/Home'
 import Search from './components/Search'
-import Detail from './components/Detail'
+import Detail from './containers/Detail'
 import NotFound from './components/NotFound'
 import  'styles/bootstrap.css';
 import  'styles/style.css';
 
 const App = () => (
-    <Router forceRefresh={true}>
+    <Router>
         <div>
             <div>
                 <Header/>

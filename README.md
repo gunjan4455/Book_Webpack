@@ -18,3 +18,4 @@ The project runs with React by default and hot replacement of changes to the mod
 
 ### To run production build 
 npm run build:prod
+"webpack": "~2.1.0-beta.22"

@@ -1,8 +1,10 @@
-import React from "react"
-import Book from '../shared/Book'
-import apiCall from '../commonApi/books';
-import {Link} from 'react-router-dom'
+import React from "react";
+import { connect } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Book from '../../components/shared/Book';
+import apiCall from '../../components/commonApi/books';
+import {Link} from 'react-router-dom';
+import {getBooksAsync} from '../../actions';
 
 class Home extends React.Component {
     constructor(props) {
@@ -38,6 +40,10 @@ class Home extends React.Component {
             .catch((err) => {
                 console.log("err", err);
             })
+    }
+
+    componentDidMount() {
+        this.props.getBooksAsync();
     }
 
     renderBook(item, index) {
@@ -83,8 +89,8 @@ class Home extends React.Component {
         //if (updatedList.length) {
         //    this.setState({noResultFound: true});
         //} else {
-            this.setState({books: updatedList, searchKey: event.target.value.toLowerCase()});
-       // }
+        this.setState({books: updatedList, searchKey: event.target.value.toLowerCase()});
+        // }
 
     }
 
@@ -93,7 +99,8 @@ class Home extends React.Component {
     }
 
     render() {
-        let books = this.state.books && this.state.books.length && this.state.books.map(this.renderBook); //later from props
+        let books = this.props.books && this.props.books.length && this.props.books.map(this.renderBook); //later from props
+        console.log("boooks===@@@@",this.props, getBooksAsync)
         return (
             <div>
 
@@ -106,7 +113,8 @@ class Home extends React.Component {
                                         <input type='text' placeholder="search..." onChange={this.filterBooks}
                                                style={{ height: 37}}/>
                                                <span>
-                                                    <input type="reset" value="X" className="btn btn-default" onClick={this.reset}/>
+                                                    <input type="reset" value="X" className="btn btn-default"
+                                                           onClick={this.reset}/>
                                                     <Link to={`/search/${this.state.searchKey}`}>
                                                         <button className="btn btn-default" type="button">Go!</button>
                                                     </Link>
@@ -132,8 +140,20 @@ class Home extends React.Component {
                 </section>
 
             </div>
-                    )
-                }
-                }
+        )
+    }
+}
 
-                export default Home
+const mapStateToProps = ({state}) => {
+    console.log('mappppppp')
+    return {
+        books: state.books
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    getBooksAsync: () =>dispatch(getBooksAsync())
+});
+
+Home = connect(mapStateToProps,mapDispatchToProps)(Home);
+export default Home

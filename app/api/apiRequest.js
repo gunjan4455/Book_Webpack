@@ -1,12 +1,9 @@
-import superagent from 'superagent'
 import config from '../config'
-
 /*
  * @function "call" common method that makes api requests
  * @param {object} "request" stores the request 'method','endpoint', 'payload', 'query'
  */
-
-export default function call({ 
+export default function call({
     //function parameters to be passed
     method = 'get',
     url,
